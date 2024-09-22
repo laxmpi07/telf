@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Counsellor Dorji - Your Digital Companion</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #f1f8fe;
+            --text-color: #2c3e50;
+            --accent-color: #e74c3c;
+        }
+        body {
+            background-color: var(--secondary-color);
+            color: var(--text-color);
+            font-family: 'Roboto', sans-serif;
+        }
+        .navbar {
+            background-color: rgba(52, 152, 219, 0.9) !important;
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand, .nav-link {
+            color: white !important;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--accent-color) !important;
+        }
+        .section {
+            padding: 100px 0;
+            scroll-margin-top: 80px;
+        }
+        h1, h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: var(--accent-color);
+            border-color: var(--accent-color);
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #c0392b;
+            border-color: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .quote-box {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .quote-box:hover {
+            transform: translateY(-5px);
+        }
+        .importance-box {
+            background-color: white;
+            border-left: 5px solid var(--accent-color);
+            padding: 30px;
+            margin-top: 40px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        .developer-info {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 30px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .developer-info:hover {
+            transform: translateY(-5px);
+        }
+        .developer-frame {
+            width: 180px;
+            height: 180px;
+            border: 3px solid var(--primary-color);
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 30px;
+            transition: transform 0.3s ease;
+        }
+        .developer-frame:hover {
+            transform: scale(1.05);
+        }
+        .developer-picture-placeholder {
+            width: 100%;
+            height: 100%;
+            background-color: #ddd;
+        }
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .feature-box {
+            text-align: center;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        .feature-box:hover {
+            transform: translateY(-10px);
+        }
+        #chatbot-container {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 350px;
+            height: 500px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            display: none;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        #chatbot-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #chatbot-messages {
+            height: 380px;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        #chatbot-input {
+            display: flex;
+            padding: 10px;
+        }
+        #chatbot-input input {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        #chatbot-input button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">AI Counsellor Dorji</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div id="home" class="section">
+        <div class="container">
+            <h1 class="display-4 mb-4">Welcome to AI Counsellor Dorji</h1>
+            <div class="quote-box">
+                <h3>Thought of the Day:</h3>
+                <p id="daily-quote" class="lead"></p>
+            </div>
+            <p class="lead">Embark on a transformative journey with Dorji, your AI-powered companion. Experience personalized support and guidance as you navigate life's intricate pathways. Dorji is here to listen, understand, and illuminate your path to personal growth and well-being.</p>
+            <button class="btn btn-primary btn-lg mt-4" onclick="openChatbot()">Start Your Journey with Dorji</button>
+        </div>
+    </div>
+
+    <div id="about" class="section bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">Discover AI Counsellor Dorji</h2>
+            <p class="lead text-center mb-5">Dorji is more than just an AI – it's a revolutionary approach to mental health support. Available 24/7, Dorji creates a sanctuary for your thoughts and emotions, offering a judgment-free space for self-exploration and growth.</p>
+            
+            <div class="importance-box">
+                <h3 class="mb-4">The Transformative Power of Counselling</h3>
+                <p>Embark on a journey of self-discovery and personal growth with AI Counsellor Dorji. Here's how our innovative approach can enrich your life:</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Emotional Sanctuary:</strong> A safe haven for your innermost thoughts and feelings.</li>
+                            <li><strong>Stress Mastery:</strong> Unlock powerful techniques to navigate life's challenges with grace.</li>
+                            <li><strong>Self-Discovery:</strong> Uncover hidden strengths and embrace your authentic self.</li>
+                            <li><strong>Strategic Problem-Solving:</strong> Develop a toolkit for overcoming obstacles and making empowered decisions.</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-6">
+                        <ul>
+                            <li><strong>Personal Evolution:</strong> Catalyze your growth and actualise your full potential.</li>
+                            <li><strong>Relationship Alchemy:</strong> Transform your connections with insights on building and nurturing bonds.</li>
+                            <li><strong>Mental Wellness:</strong> Cultivate a resilient mindset for long-term psychological well-being.</li>
+                            <li><strong>24/7 Accessibility:</strong> Your personal growth companion, always at your fingertips.</li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="mt-4">With AI Counsellor Dorji, embark on a transformative journey towards a more fulfilled and balanced life. While Dorji complements professional care for severe cases, it stands as your steadfast ally in daily mental wellness and personal development.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="features" class="section">
+        <div class="container">
+            <h2 class="text-center mb-5">Discover Dorji's Unique Features</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box">
+                        <i class="fas fa-brain feature-icon"></i>
+                        <h3>AI-Powered Insights</h3>
+                        <p>Harness the power of advanced AI to gain deep insights into your thoughts and behaviors.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box">
+                        <i class="fas fa-clock feature-icon"></i>
+                        <h3>24/7 Availability</h3>
+                        <p>Access support anytime, anywhere. Dorji is always here to listen and guide you.</p>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="feature-box">
+                        <i class="fas fa-lock feature-icon"></i>
+                        <h3>Confidential & Secure</h3>
+                        <p>Your privacy is our priority. All conversations are encrypted and completely confidential.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="contact" class="section bg-white">
+        <div class="container">
+            <h2 class="text-center mb-5">Get in Touch</h2>
+            <p class="text-center mb-5">Have questions or feedback about your journey with AI Counsellor Dorji? We're here to listen and help.</p>
+            <form id="contactForm" class="mx-auto" style="max-width: 500px;">
+                <div class="mb-3">
+                    <input type="text" class="form-control" placeholder="Your Name" required>
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" placeholder="Your Email" required>
+                </div>
+                <div class="mb-3">
+                    <textarea class="form-control" placeholder="Your Message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Send Your Message</button>
+            </form>
+            
+            <div class="developer-info mt-5">
+              <h3 class="text-center mb-4">Meet the Developer</h3>
+              <div class="developer-frame">
+                  <img src="laxmi.jpg" alt="Laxmi Prasad Dhakal" class="img-fluid rounded-circle">
+              </div>
+              <p class="text-center"><strong>Laxmi Prasad Dhakal</strong></p>
+              <p class="text-center">The visionary behind AI Counsellor Dorji</p>
+              <p class="text-center"><strong>Contact:</strong> +97517564730</p>
+              <p class="text-center"><strong>Email:</strong> laxmiprasaddhakalwbf@gmail.com</p>
+          </div>
+        </div>
+    </div>
+
+    <footer class="text-center py-4">
+        <p>&copy; 2024 AI Counsellor Dorji. All rights reserved.</p>
+        <p>Crafted with ❤️ by Laxmi Prasad Dhakal</p>
+    </footer>
+
+    <div id="chatbot-container">
+        <div id="chatbot-header">
+            <span>Chat with Dorji</span>
+            <button onclick="closeChatbot()" style="background: none; border: none; color: white;">✕</button>
+        </div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input">
+            <input type="text" id="user-input" placeholder="Type your message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Form submission handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message. We will get back to you soon!');
+            this.reset();
+        });
+
+
+        // Daily changing quote (continued)
+        const quotes = [
+            "The journey of a thousand miles begins with one step. - Lao Tzu",
+            "The only way out is through. - Robert Frost",
+            "You, yourself, as much as anybody in the entire universe, deserve your love and affection. - Buddha",
+            "Happiness is not something ready-made. It comes from your own actions. - Dalai Lama",
+            "The greatest glory in living lies not in never falling, but in rising every time we fall. - Nelson Mandela",
+            "The future belongs to those who believe in the beauty of their dreams. - Eleanor Roosevelt",
+            "It is during our darkest moments that we must focus to see the light. - Aristotle"
+        ];
+
+        function setDailyQuote() {
+            const today = new Date();
+            const quoteIndex = today.getDate() % quotes.length;
+            document.getElementById('daily-quote').textContent = quotes[quoteIndex];
+        }
+
+        setDailyQuote();
+
+        // Chatbot functionality
+        function openChatbot() {
+            document.getElementById('chatbot-container').style.display = 'block';
+        }
+
+        function closeChatbot() {
+            document.getElementById('chatbot-container').style.display = 'none';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('user-input');
+            const message = input.value.trim();
+            if (message) {
+                addMessage('You', message);
+                // Here you would typically send the message to your AI backend
+                // and get a response. For now, we'll just echo the message.
+                setTimeout(() => addMessage('Dorji', `I received your message: "${message}"`), 1000);
+                input.value = '';
+            }
+        }
+
+        function addMessage(sender, text) {
+            const messages = document.getElementById('chatbot-messages');
+            const messageElement = document.createElement('p');
+            messageElement.innerHTML = `<strong>${sender}:</strong> ${text}`;
+            messages.appendChild(messageElement);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        // Prevent default form submission on Enter key
+        document.getElementById('user-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+
+        // Google Analytics (replace with your tracking ID)
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-XXXXXXXX-X');
+    </script>
+
+    <!-- Floating Chat Integration -->
+    <script>
+        window.chtlConfig = { chatbotId: "1785443241" }
+    </script>
+    <script async data-id="1785443241" id="chatling-embed-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
+</body>
+</html>
